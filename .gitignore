@@ -1,0 +1,19 @@
+# Build
+/build/
+
+# CMake
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+compile_commands.json
+Makefile
+
+# Qt Creator
+*.user
+*.pro.user
+
+# VS Code
+.vscode/
+
+# CLion
+.idea/
