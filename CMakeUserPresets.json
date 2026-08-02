@@ -1,0 +1,21 @@
+{
+  "version": 4,
+  "configurePresets": [
+    {
+      "name": "local",
+      "displayName": "Local Qt 6.11.1",
+      "inherits": "base",
+      "cacheVariables": {
+        "CMAKE_PREFIX_PATH": "$env{HOME}/Qt/6.11.1/gcc_64;${sourceDir}/third_party/install"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "local-build",
+      "displayName": "Build local configuration",
+      "configurePreset": "local",
+      "jobs": 0
+    }
+  ]
+}

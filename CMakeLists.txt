@@ -26,3 +26,8 @@ target_link_libraries(liona_term
     Qt6::Widgets
     qtermwidget6
 )
+
+target_compile_definitions(liona_term
+    PRIVATE
+    LIONA_COLOR_SCHEME_DIR="${CMAKE_CURRENT_SOURCE_DIR}/third_party/qtermwidget/lib/color-schemes"
+)

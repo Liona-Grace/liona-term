@@ -40,7 +40,12 @@ int main(int argc, char *argv[])
     treeView->setAnimated(true);
     treeView->setIndentation(16);
 
+    QTermWidget::addCustomColorSchemeDir(
+        QStringLiteral(LIONA_COLOR_SCHEME_DIR)
+    );
+
     auto *terminal = new QTermWidget(0, splitter);
+    terminal->setColorScheme(QStringLiteral("Nord"));
     terminal->setShellProgram(QStringLiteral("/bin/bash"));
     terminal->setWorkingDirectory(homePath);
     terminal->startShellProgram();
