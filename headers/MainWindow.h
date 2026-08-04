@@ -10,10 +10,9 @@
 #include <QTreeView>
 #include <QVBoxLayout>
 #include <QLineEdit>
-#include <QMenu>
-#include <QAction>
 
-#include <qtermwidget.h>
+#include "LionaTerminal.h"
+#include "LionaFilesystem.h"
 
 class MainWindow : public QMainWindow {
 public:
@@ -25,25 +24,17 @@ private:
     void initializeLeftSide();
     void initializeRightSide();
 
-    void navigateToPath(const QString& path);
-
 private:
-    // left side
-    QWidget* leftSideWidget;
-    QVBoxLayout* leftSideLayout;
-    QTreeView* treeView;
-    QLineEdit* pathLineEdit;
-
     // common
-    QSplitter* splitter;
-    QFileSystemModel* fileModel;
+    QSplitter* splitter = nullptr;
+    QFileSystemModel* fileModel = nullptr;
     QString homePath;
 
-    // right side
-    QTermWidget* terminal;
+    // left side
+    LionaFilesystem* filesystem = nullptr;
 
-    QAction *copyAction = nullptr;
-    QAction *pasteAction = nullptr;
+    // right side
+    LionaTerminal* terminal = nullptr;
 };
 
 #endif // __MAINWINDOW_H__
