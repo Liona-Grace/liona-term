@@ -62,6 +62,31 @@ void MainWindow::initializeLeftSide() {
     treeView->setAnimated(true);
     treeView->setIndentation(16);
 
+    connect(
+    treeView,
+    &QTreeView::clicked,
+    this,
+    [this](const QModelIndex& index)
+    {
+        QFileInfo info = fileModel->fileInfo(index);
+
+        if (info.isDir())
+        {
+            pathLineEdit->setText(info.absoluteFilePath());
+        }
+    }
+);
+
+connect(
+    pathLineEdit,
+    &QLineEdit::returnPressed,
+    this,
+    [this]()
+    {
+        navigateToPath(pathLineEdit->text().trimmed());
+    }
+);
+
     leftSideLayout->addWidget(pathLineEdit);
     leftSideLayout->addWidget(treeView);
 }
@@ -115,4 +140,48 @@ void MainWindow::initializeRightSide() {
             menu.exec(terminal->mapToGlobal(position));
         }
     );
+}
+
+void MainWindow::navigateToPath(const QString& inputPath)
+{
+    QFileInfo fileInfo(inputPath);
+
+    if (!fileInfo.exists())
+    {
+        pathLineEdit->setStyleSheet("color: red;");
+        return;
+    }
+
+    const QString path = fileInfo.absoluteFilePath();
+    const QModelIndex targetIndex = fileModel->index(path);
+
+    if (!targetIndex.isValid())
+    {
+        pathLineEdit->setStyleSheet("color: red;");
+        return;
+    }
+
+    pathLineEdit->setStyleSheet({});
+    pathLineEdit->setText(path);
+
+    QModelIndex parentIndex = targetIndex.parent();
+    QList<QModelIndex> parents;
+
+    while (parentIndex.isValid())
+    {
+        parents.prepend(parentIndex);
+        parentIndex = parentIndex.parent();
+    }
+
+    for (const QModelIndex& index : parents)
+        treeView->expand(index);
+
+    treeView->setCurrentIndex(targetIndex);
+    treeView->scrollTo(
+        targetIndex,
+        QAbstractItemView::PositionAtCenter
+    );
+
+    if (fileInfo.isDir())
+        treeView->expand(targetIndex);
 }

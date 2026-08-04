@@ -25,6 +25,8 @@ private:
     void initializeLeftSide();
     void initializeRightSide();
 
+    void navigateToPath(const QString& path);
+
 private:
     // left side
     QWidget* leftSideWidget;
