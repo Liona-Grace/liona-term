@@ -19,15 +19,24 @@ add_subdirectory(
 
 add_executable(liona_term
     main.cpp
+    sources/MainApplication.cpp
+    sources/MainWindow.cpp
+    headers/MainApplication.h
+    headers/MainWindow.h
+)
+
+target_include_directories(liona_term
+    PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/headers
 )
 
 target_link_libraries(liona_term
     PRIVATE
-    Qt6::Widgets
-    qtermwidget6
+        Qt6::Widgets
+        qtermwidget6
 )
 
 target_compile_definitions(liona_term
     PRIVATE
-    LIONA_COLOR_SCHEME_DIR="${CMAKE_CURRENT_SOURCE_DIR}/third_party/qtermwidget/lib/color-schemes"
+        LIONA_COLOR_SCHEME_DIR="${CMAKE_CURRENT_SOURCE_DIR}/third_party/qtermwidget/lib/color-schemes"
 )
