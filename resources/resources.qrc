@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/liona-term/color-schemes">
+        <file alias="Nord.colorscheme">../third_party/qtermwidget/lib/color-schemes/Nord.colorscheme</file>
+    </qresource>
+</RCC>

@@ -4,6 +4,7 @@ project(liona_term LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_AUTORCC ON)
 
 find_package(Qt6 6.6 REQUIRED COMPONENTS Widgets)
 
@@ -22,11 +23,12 @@ add_executable(liona_term
     sources/MainApplication.cpp
     sources/MainWindow.cpp
     sources/LionaTerminal.cpp
-    sources/LionaFilesystem.cpp
+    sources/LionaFileExplorer.cpp
     headers/MainApplication.h
     headers/MainWindow.h
     headers/LionaTerminal.h
-    headers/LionaFilesystem.h
+    headers/LionaFileExplorer.h
+    resources/resources.qrc
 )
 
 target_include_directories(liona_term
@@ -38,9 +40,4 @@ target_link_libraries(liona_term
     PRIVATE
         Qt6::Widgets
         qtermwidget6
-)
-
-target_compile_definitions(liona_term
-    PRIVATE
-        LIONA_COLOR_SCHEME_DIR="${CMAKE_CURRENT_SOURCE_DIR}/third_party/qtermwidget/lib/color-schemes"
 )

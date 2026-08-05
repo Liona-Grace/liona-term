@@ -7,23 +7,26 @@
 #include <QModelIndex>
 #include <QFileInfo>
 #include <QFileSystemModel>
+#include <QAction>
+#include <QMenu>
+#include <QApplication>
+#include <QClipboard>
 
-class LionaFilesystem : public QWidget {
+class LionaFileExplorer : public QWidget {
 public:
-    explicit LionaFilesystem(QFileSystemModel* fileModel, QWidget* parent = nullptr);
-    ~LionaFilesystem() = default;
-
-public:
-    void setup(const QString& path);
+    explicit LionaFileExplorer(const QString& defaultPath, QWidget* parent = nullptr);
+    ~LionaFileExplorer() = default;
 
 private:
-    void setupUi(QString defaultPath);
+    void setup(const QString& path);
+    void setupUi(const QString& defaultPath);
     void setupActions();
     void navigateToPath(const QString& path);
 
 private:
-    QVBoxLayout* boxLayout = nullptr;
     QLineEdit* pathLineEdit = nullptr;
     QTreeView* filesystemTreeView = nullptr;
     QFileSystemModel* fileModel = nullptr;
+
+    QAction *copyAction = nullptr;
 };
