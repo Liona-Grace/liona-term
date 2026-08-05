@@ -1,18 +1,26 @@
 #include "LionaTerminal.h"
 
-LionaTerminal::LionaTerminal(QWidget *parent) : QTermWidget(0, parent) { }
+namespace terminal_defaults
+{
+    constexpr auto DefaultColorScheme = "Nord";
+    constexpr auto DefaultShellProgram = "/bin/bash";
+}
 
-void LionaTerminal::setup(QString defaultPath) {
+LionaTerminal::LionaTerminal(const QString& defaultPath, QWidget *parent) : QTermWidget(0, parent) { 
+    setup(defaultPath);
+}
+
+void LionaTerminal::setup(const QString& defaultPath) {
     setupUi(defaultPath);
     setupActions();
 }
 
-void LionaTerminal::setupUi(QString defaultPath) {
-    this->setColorScheme(COLOR_SCHEME_DEFAULT);
-    this->setShellProgram(SHELL_PROGRAM_DEFAULT);
-    this->setWorkingDirectory(defaultPath);
-    this->setContextMenuPolicy(Qt::CustomContextMenu);
-    this->startShellProgram();
+void LionaTerminal::setupUi(const QString& defaultPath) {
+    setColorScheme(terminal_defaults::DefaultColorScheme);
+    setShellProgram(terminal_defaults::DefaultShellProgram);
+    setWorkingDirectory(defaultPath);
+    setContextMenuPolicy(Qt::CustomContextMenu);
+    startShellProgram();
 }
 
 void LionaTerminal::setupActions() {

@@ -22,11 +22,11 @@ add_executable(liona_term
     sources/MainApplication.cpp
     sources/MainWindow.cpp
     sources/LionaTerminal.cpp
-    sources/LionaFilesystem.cpp
+    sources/LionaFileExplorer.cpp
     headers/MainApplication.h
     headers/MainWindow.h
     headers/LionaTerminal.h
-    headers/LionaFilesystem.h
+    headers/LionaFileExplorer.h
 )
 
 target_include_directories(liona_term
