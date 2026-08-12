@@ -7,6 +7,9 @@
 #include <QDir>
 #include <QFileInfo>
 #include <QKeySequence>
+#include <QResizeEvent>
+#include <QTabBar>
+#include <QTimer>
 #include <QToolButton>
 
 LionaTab::LionaTab(const QString& defaultPath, QWidget* parent)
@@ -23,14 +26,20 @@ void LionaTab::setupUi()
     setMovable(true);
     setDocumentMode(true);
 
-    auto* addButton = new QToolButton(this);
+    addButton = new QToolButton(tabBar());
     addButton->setText(QStringLiteral("+"));
     addButton->setToolTip(tr("New terminal"));
-    setCornerWidget(addButton, Qt::TopRightCorner);
+    addButton->setAutoRaise(true);
+    addButton->show();
 
     connect(addButton, &QToolButton::clicked, this, [this]()
     {
         addTerminal();
+    });
+
+    connect(tabBar(), &QTabBar::tabMoved, this, [this]()
+    {
+        updateAddButtonPosition();
     });
 }
 
@@ -79,6 +88,7 @@ LionaTerminal* LionaTab::addTerminal(const QString& path)
     updateTerminalTitle(terminal, workingPath);
     setCurrentIndex(index);
     terminal->setFocus();
+    QTimer::singleShot(0, this, [this]() { updateAddButtonPosition(); });
 
     return terminal;
 }
@@ -92,9 +102,45 @@ void LionaTab::closeTerminal(int index)
 
     removeTab(index);
     terminal->deleteLater();
+    updateAddButtonPosition();
 
     if (count() == 0)
         QApplication::quit();
+}
+
+void LionaTab::resizeEvent(QResizeEvent* event)
+{
+    QTabWidget::resizeEvent(event);
+    updateAddButtonPosition();
+}
+
+void LionaTab::updateAddButtonPosition()
+{
+    if (!addButton || count() == 0)
+        return;
+
+    const QRect lastTabRect = tabBar()->tabRect(count() - 1);
+    const int spacing = 2;
+    int availableRight = tabBar()->width();
+
+    // QTabBar creates its own navigation buttons when the tabs overflow.
+    // Keep the add button to their left instead of covering them.
+    const auto tabBarButtons = tabBar()->findChildren<QToolButton*>(
+        QString(),
+        Qt::FindDirectChildrenOnly
+    );
+    for (QToolButton* button : tabBarButtons)
+    {
+        if (button != addButton && button->isVisible())
+            availableRight = qMin(availableRight, button->geometry().left());
+    }
+
+    const int maximumX = availableRight - addButton->width() - spacing;
+    const int x = qMax(0, qMin(lastTabRect.right() + spacing, maximumX));
+    const int y = (tabBar()->height() - addButton->height()) / 2;
+
+    addButton->move(x, y);
+    addButton->raise();
 }
 
 LionaTerminal* LionaTab::currentTerminal() const

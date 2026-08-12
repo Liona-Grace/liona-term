@@ -4,6 +4,8 @@
 
 class QAction;
 class LionaTerminal;
+class QResizeEvent;
+class QToolButton;
 
 class LionaTab : public QTabWidget
 {
@@ -28,8 +30,13 @@ private:
     void setupActions();
     void connectTerminal(LionaTerminal* terminal);
     void updateTerminalTitle(LionaTerminal* terminal, const QString& path);
+    void updateAddButtonPosition();
+
+protected:
+    void resizeEvent(QResizeEvent* event) override;
 
 private:
     QString defaultPath;
     QAction* newTerminalAction = nullptr;
+    QToolButton* addButton = nullptr;
 };

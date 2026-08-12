@@ -13,6 +13,8 @@
 #include <QClipboard>
 
 class LionaFileExplorer : public QWidget {
+    Q_OBJECT
+
 public:
     explicit LionaFileExplorer(const QString& defaultPath, QWidget* parent = nullptr);
     ~LionaFileExplorer() = default;

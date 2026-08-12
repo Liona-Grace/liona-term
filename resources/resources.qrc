@@ -8,4 +8,7 @@
     <qresource prefix="/liona-term/kb-layouts">
         <file alias="default.keytab">../third_party/qtermwidget/lib/kb-layouts/default.keytab</file>
     </qresource>
+    <qresource prefix="/liona-term/styles">
+        <file alias="liona_style.qss">liona_style.qss</file>
+    </qresource>
 </RCC>
