@@ -48,12 +48,11 @@ Color=255,255,84
 
 [Color4]
 Bold=false
-Color=24,24,178
-
+Color=94,129,172
 
 [Color4Intense]
 Bold=false
-Color=84,84,255
+Color=129,161,193
 
 
 [Color5]

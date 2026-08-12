@@ -1,6 +1,9 @@
 <RCC>
     <qresource prefix="/liona-term/color-schemes">
         <file alias="Nord.colorscheme">../third_party/qtermwidget/lib/color-schemes/Nord.colorscheme</file>
+        <file alias="Linux.colorscheme">../third_party/qtermwidget/lib/color-schemes/Linux.colorscheme</file>
+        <file alias="WhiteOnBlack.colorscheme">../third_party/qtermwidget/lib/color-schemes/WhiteOnBlack.colorscheme</file>
+        <file alias="Ubuntu.colorscheme">../third_party/qtermwidget/lib/color-schemes/Ubuntu.colorscheme</file>
     </qresource>
     <qresource prefix="/liona-term/kb-layouts">
         <file alias="default.keytab">../third_party/qtermwidget/lib/kb-layouts/default.keytab</file>

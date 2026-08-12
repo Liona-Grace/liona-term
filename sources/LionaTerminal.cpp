@@ -9,7 +9,7 @@
 
 namespace terminal_defaults
 {
-    constexpr auto DefaultColorScheme = "Nord";
+    constexpr auto DefaultColorScheme = "Linux";
     constexpr int HistorySize = 5000;
 
     QString shellProgram()
