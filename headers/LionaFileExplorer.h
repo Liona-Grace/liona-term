@@ -16,12 +16,12 @@ class LionaFileExplorer : public QWidget {
 public:
     explicit LionaFileExplorer(const QString& defaultPath, QWidget* parent = nullptr);
     ~LionaFileExplorer() = default;
+    void navigateToPath(const QString& path);
 
 private:
     void setup(const QString& path);
     void setupUi(const QString& defaultPath);
     void setupActions();
-    void navigateToPath(const QString& path);
 
 private:
     QLineEdit* pathLineEdit = nullptr;

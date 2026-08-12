@@ -45,6 +45,8 @@ void LionaTerminal::setupUi(const QString& defaultPath) {
     saveAsAction = new QAction(tr("Save as..."), this);
     saveAsAction->setShortcut(QKeySequence::SaveAs);
 
+    navigateAction = new QAction(tr("Navigate to"), this);
+
     setCustomKeyBindingsDir(QStringLiteral(":/liona-term/kb-layouts"));
     setKeyBindings(QStringLiteral("default"));
     setColorScheme(terminal_defaults::DefaultColorScheme);
@@ -57,6 +59,7 @@ void LionaTerminal::setupUi(const QString& defaultPath) {
     addAction(copyAction);
     addAction(pasteAction);
     addAction(saveAsAction);
+    addAction(navigateAction);
 }
 
 void LionaTerminal::setupActions() {
@@ -89,6 +92,19 @@ void LionaTerminal::setupActions() {
     );
 
     connect(
+        navigateAction,
+        &QAction::triggered,
+        this,
+        [this]()
+        {
+            const QString path = workingDirectory();
+
+            if (!path.isEmpty())
+                emit navigationRequested(path);
+        }
+    );
+
+    connect(
         this,
         &QTermWidget::copyAvailable,
         copyAction,
@@ -105,6 +121,7 @@ void LionaTerminal::setupActions() {
             menu.addAction(copyAction);
             menu.addAction(pasteAction);
             menu.addSeparator();
+            menu.addAction(navigateAction);
             menu.addAction(saveAsAction);
 
             menu.exec(this->mapToGlobal(position));

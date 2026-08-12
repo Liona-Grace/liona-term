@@ -11,7 +11,7 @@ void LionaFileExplorer::setup(const QString& path) {
         QDir::Files |
         QDir::NoDotAndDotDot
     );
-    fileModel->setRootPath(path);
+    fileModel->setRootPath(QDir::rootPath());
 
     setupUi(path);
     setupActions();
@@ -27,7 +27,8 @@ void LionaFileExplorer::setupUi(const QString& defaultPath) {
 
     filesystemTreeView = new QTreeView(this);
     filesystemTreeView->setModel(fileModel);
-    filesystemTreeView->setRootIndex(fileModel->index(defaultPath));
+    filesystemTreeView->setRootIndex(fileModel->index(QDir::rootPath()));
+    filesystemTreeView->expand(fileModel->index(defaultPath));
 
     // Chỉ giữ cột tên file/thư mục.
     filesystemTreeView->hideColumn(1);

@@ -17,6 +17,13 @@ void MainWindow::initialize() {
     fileExplorer = new LionaFileExplorer(homePath, splitter);
     terminal = new LionaTerminal(homePath, splitter);
 
+    connect(
+        terminal,
+        &LionaTerminal::navigationRequested,
+        fileExplorer,
+        &LionaFileExplorer::navigateToPath
+    );
+
     // add widgets to the splitter
     splitter->addWidget(fileExplorer);
     splitter->addWidget(terminal);
