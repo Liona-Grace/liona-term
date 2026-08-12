@@ -23,10 +23,12 @@ add_executable(liona_term
     main.cpp
     sources/MainApplication.cpp
     sources/MainWindow.cpp
+    sources/LionaTab.cpp
     sources/LionaTerminal.cpp
     sources/LionaFileExplorer.cpp
     headers/MainApplication.h
     headers/MainWindow.h
+    headers/LionaTab.h
     headers/LionaTerminal.h
     headers/LionaFileExplorer.h
     resources/resources.qrc

@@ -5,8 +5,8 @@
 #include <QMainWindow>
 #include <QSplitter>
 
-#include "LionaTerminal.h"
 #include "LionaFileExplorer.h"
+#include "LionaTab.h"
 
 class MainWindow : public QMainWindow {
 public:
@@ -19,7 +19,7 @@ private:
 private:
     QSplitter* splitter = nullptr;
     LionaFileExplorer* fileExplorer = nullptr;
-    LionaTerminal* terminal = nullptr;
+    LionaTab* terminalTabs = nullptr;
 };
 
 #endif // __MAINWINDOW_H__

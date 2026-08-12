@@ -1,6 +1,5 @@
 #include "LionaTerminal.h"
 
-#include <QApplication>
 #include <QBuffer>
 #include <QFile>
 #include <QFileDialog>
@@ -63,13 +62,6 @@ void LionaTerminal::setupUi(const QString& defaultPath) {
 }
 
 void LionaTerminal::setupActions() {
-    connect(
-        this,
-        &QTermWidget::finished,
-        qApp,
-        &QApplication::quit
-    );
-
     connect(
         copyAction,
         &QAction::triggered,

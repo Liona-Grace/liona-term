@@ -1,5 +1,7 @@
 #include "MainWindow.h"
 
+#include <qtermwidget.h>
+
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     initialize();
 }
@@ -15,18 +17,18 @@ void MainWindow::initialize() {
     splitter = new QSplitter(Qt::Horizontal, this);
 
     fileExplorer = new LionaFileExplorer(homePath, splitter);
-    terminal = new LionaTerminal(homePath, splitter);
+    terminalTabs = new LionaTab(homePath, splitter);
 
     connect(
-        terminal,
-        &LionaTerminal::navigationRequested,
+        terminalTabs,
+        &LionaTab::navigationRequested,
         fileExplorer,
         &LionaFileExplorer::navigateToPath
     );
 
     // add widgets to the splitter
     splitter->addWidget(fileExplorer);
-    splitter->addWidget(terminal);
+    splitter->addWidget(terminalTabs);
 
     splitter->setSizes({220, 900});
     splitter->setStretchFactor(0, 0);
